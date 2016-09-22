@@ -38,6 +38,8 @@ class Plugin extends BasePlugin {
 	 */
 	private function define_admin_hooks(){
 		$plugin_admin = $this->loader->admin_plugin;
+
+		$this->loader->add_action("admin_enqueue_scripts",$plugin_admin,"assets");
 	}
 
 	/**

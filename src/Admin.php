@@ -1,5 +1,6 @@
 <?php
 namespace WBWooVariationsDefaultPrice;
+use WBF\components\assets\AssetsManager;
 
 /**
  * The public-facing functionality of the plugin.
@@ -28,5 +29,25 @@ class Admin {
 	 */
 	public function __construct( $plugin_name = null, $version = null, $core = null ) {
 		if(isset($core)) $this->plugin = $core;
+	}
+
+	public function assets(){
+		$assets = [
+			'vdp-admin-script' => [
+				'path' => $this->plugin->get_dir()."/assets/dist/js/bundle.js",
+				'uri' => $this->plugin->get_uri()."/assets/dist/js/bundle.js",
+				'type' => 'js',
+				'deps' => ['jquery','backbone','underscore'],
+				'i10n' => [
+					'name' => "VDPData",
+					'params' => [
+						'isAdmin' => is_admin()
+					]
+				]
+			]
+		];
+
+		$am = new AssetsManager($assets);
+		$am->enqueue();
 	}
 }

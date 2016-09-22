@@ -2,11 +2,16 @@ module.exports = Backbone.Model.extend({
     initialize: function() {
         "use strict";
         //console.log("It's admin time!");
-        this.do_stuff();
+        this.on_ready();
     },
-    do_stuff: function(){
+    on_ready: function(){
         "use strict";
         var $ = jQuery;
-        //Do stuff...
+        $(document.body).on('wc-init-tabbed-panels',() => {
+            let $pricing_group = $(".options_group.pricing");
+            if($pricing_group.length > 0){
+                $pricing_group.addClass("show_if_variable");
+            }
+        })
     }
 });

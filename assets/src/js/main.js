@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
     "use strict";
-    if (wbData.isAdmin) {
+    if (VDPData.isAdmin) {
         /*************
          *************
          * ADMIN
