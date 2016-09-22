@@ -40,6 +40,8 @@ class Plugin extends BasePlugin {
 		$plugin_admin = $this->loader->admin_plugin;
 
 		$this->loader->add_action("admin_enqueue_scripts",$plugin_admin,"assets");
+
+		$this->loader->add_action("woocommerce_variation_options_pricing",$plugin_admin,"inject_js_after_variation_prices", 10, 3);
 	}
 
 	/**

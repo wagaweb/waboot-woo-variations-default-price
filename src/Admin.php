@@ -50,4 +50,13 @@ class Admin {
 		$am = new AssetsManager($assets);
 		$am->enqueue();
 	}
+
+	/**
+	 * For further usage
+	 *
+	 * @param $loop
+	 * @param $variation_data
+	 * @param $variation
+	 */
+	public function inject_js_after_variation_prices($loop, $variation_data, $variation){}
 }
