@@ -31,6 +31,11 @@ class Admin {
 		if(isset($core)) $this->plugin = $core;
 	}
 
+	/**
+	 * Enqueue plugins assets
+	 *
+	 * @hooked 'admin_enqueue_scripts'
+	 */
 	public function assets(){
 		$assets = [
 			'vdp-admin-script' => [
@@ -56,6 +61,8 @@ class Admin {
 	 * For this behavior looks at: class-wc-meta-box-product-data.php @ save()
 	 *
 	 * @hooked 'woocommerce_process_product_meta_[variable]'
+	 *
+	 * @param int $post_id
 	 */
 	public function save_prices_for_variable_products($post_id){
 		//Following lines are cut-past from WooCommerce source:
@@ -96,6 +103,8 @@ class Admin {
 	/**
 	 * WooCommerce bypass the saving of prices for variable and grouped products. We want to save them.
 	 * For this behavior looks at: class-wc-admin-post-types.php @ quick_edit_save()
+	 *
+	 * @hooked 'woocommerce_product_quick_edit_save'
 	 *
 	 * @param $product
 	 */
@@ -139,7 +148,23 @@ class Admin {
 	}
 
 	/**
+	 * Adds product variable to 'save-price-enabled' types for bulk edit. For some strange reason WooCommerce applies this more logical approach in bulk edit only ¯\_(ツ)_/¯
+	 *
+	 * @param array $types
+	 *
+	 * @hooked 'woocommerce_bulk_edit_save_price_product_types'
+	 *
+	 * @return array
+	 */
+	public function enable_variable_product_to_save_price_in_bulk_edit($types){
+		$types[] = "variable";
+		return $types;
+	}
+
+	/**
 	 * For further usage
+	 *
+	 * @hooked 'woocommerce_variation_options_pricing'
 	 *
 	 * @param $loop
 	 * @param $variation_data

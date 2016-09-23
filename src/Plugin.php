@@ -47,6 +47,8 @@ class Plugin extends BasePlugin {
 		$this->loader->add_action('woocommerce_process_product_meta_'.'variable', $plugin_admin, "save_prices_for_variable_products", 10, 1);
 
 		$this->loader->add_action('woocommerce_product_quick_edit_save', $plugin_admin, "save_prices_for_variable_products_during_quick_edit", 10, 1);
+
+		$this->loader->add_filter('woocommerce_bulk_edit_save_price_product_types', $plugin_admin, "enable_variable_product_to_save_price_in_bulk_edit", 10, 1);
 	}
 
 	private function define_general_hooks(){
