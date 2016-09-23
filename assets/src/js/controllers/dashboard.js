@@ -1,8 +1,12 @@
 module.exports = Backbone.Model.extend({
     initialize: function() {
         "use strict";
+        var $ = jQuery;
         //console.log("It's admin time!");
         this.on_ready();
+        $(window).on("load",() => {
+            this.on_load();
+        })
     },
     on_ready: function(){
         "use strict";
@@ -34,6 +38,23 @@ module.exports = Backbone.Model.extend({
                     }
                 }
             });
+        });
+    },
+    on_load: function(){
+        "use strict";
+        var $ = jQuery;
+        //Show price and sale price in quick edit for product variable
+        $( '#the-list' ).on( 'click', '.editinline', function() {
+            let post_id = $( this ).closest( 'tr' ).attr( 'id' );
+            post_id = post_id.replace( 'post-', '' );
+            let $wc_inline_data = $( '#woocommerce_inline_' + post_id );
+            // Conditional display
+            let product_type       = $wc_inline_data.find( '.product_type' ).text(),
+                product_is_virtual = $wc_inline_data.find( '.product_is_virtual' ).text();
+
+            if ( 'variable' === product_type ) {
+                $( '.price_fields', '.inline-edit-row' ).show().removeAttr( 'style' );
+            }
         });
     }
 });

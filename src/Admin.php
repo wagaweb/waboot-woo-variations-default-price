@@ -94,6 +94,51 @@ class Admin {
 	}
 
 	/**
+	 * WooCommerce bypass the saving of prices for variable and grouped products. We want to save them.
+	 * For this behavior looks at: class-wc-admin-post-types.php @ quick_edit_save()
+	 *
+	 * @param $product
+	 */
+	public function save_prices_for_variable_products_during_quick_edit($product){
+		if ( $product->is_type('variable') ) {
+			$post_id = $product->id;
+
+			if ( isset( $_REQUEST['_regular_price'] ) ) {
+				$new_regular_price = $_REQUEST['_regular_price'] === '' ? '' : wc_format_decimal( $_REQUEST['_regular_price'] );
+				update_post_meta( $post_id, '_regular_price', $new_regular_price );
+			} else {
+				$new_regular_price = null;
+			}
+			if ( isset( $_REQUEST['_sale_price'] ) ) {
+				$new_sale_price = $_REQUEST['_sale_price'] === '' ? '' : wc_format_decimal( $_REQUEST['_sale_price'] );
+				update_post_meta( $post_id, '_sale_price', $new_sale_price );
+			} else {
+				$new_sale_price = null;
+			}
+
+			// Handle price - remove dates and set to lowest
+			$price_changed = false;
+
+			if ( ! is_null( $new_regular_price ) && $new_regular_price != $old_regular_price ) {
+				$price_changed = true;
+			} elseif ( ! is_null( $new_sale_price ) && $new_sale_price != $old_sale_price ) {
+				$price_changed = true;
+			}
+
+			if ( $price_changed ) {
+				update_post_meta( $post_id, '_sale_price_dates_from', '' );
+				update_post_meta( $post_id, '_sale_price_dates_to', '' );
+
+				if ( ! is_null( $new_sale_price ) && $new_sale_price !== '' ) {
+					update_post_meta( $post_id, '_price', $new_sale_price );
+				} else {
+					update_post_meta( $post_id, '_price', $new_regular_price );
+				}
+			}
+		}
+	}
+
+	/**
 	 * For further usage
 	 *
 	 * @param $loop
