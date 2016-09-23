@@ -5,11 +5,15 @@
   "authors": [
     {
       "name": "Riccardo D'Angelo",
-      "email": "riccardo@waga.it"
+      "email": "riccardo@waga.it",
+      "homepage": "http://www.waga.it",
+      "role": "Lead Developer"
     },
     {
       "name": "Waga Dev Team",
-      "email": "dev@waga.it"
+      "email": "dev@waga.it",
+      "homepage": "http://www.waga.it",
+      "role": "Developer"
     }
   ],
   "replace": {
