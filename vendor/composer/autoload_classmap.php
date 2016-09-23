@@ -15,6 +15,7 @@ return array(
     'PluginUpdate_1_6' => $vendorDir . '/wbf/customupdater/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php',
     'PucDebugBarPlugin' => $vendorDir . '/wbf/customupdater/vendor/yahnis-elsts/plugin-update-checker/debug-bar-plugin.php',
     'PucFactory' => $vendorDir . '/wbf/customupdater/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php',
+    'WBF\\components\\assets\\AssetsManager' => $vendorDir . '/wbf/assets/AssetsManager.php',
     'WBF\\components\\notices\\Notice_Manager' => $vendorDir . '/wbf/notices/Notice_Manager.php',
     'WBF\\components\\notices\\conditions\\ComponentIsPresent' => $vendorDir . '/wbf/notices/conditions/ComponentIsPresent.php',
     'WBF\\components\\notices\\conditions\\Condition' => $vendorDir . '/wbf/notices/conditions/Condition.php',

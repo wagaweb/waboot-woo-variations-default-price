@@ -5,14 +5,11 @@ namespace WBWooVariationsDefaultPrice;
 /**
  * The plugin bootstrap file
  *
- * @link              http://www.waboot.com
- * @package           WBWooVariationsDefaultPrice
- *
  * @wordpress-plugin
- * Plugin Name:       WAGA Variations Default Price for WooCommerce
+ * Plugin Name:       WAGA Variations Default Prices for WooCommerce
  * Plugin URI:        http://www.waga.it/
- * Description:       Allows users to set a default price for all product variations
- * Version:           0.1.0
+ * Description:       Allows shop owner to set default prices for product variations.
+ * Version:           1.0.0
  * Author:            WAGA
  * Author URI:        http://www.waga.it/
  * License:           GPL-2.0+
@@ -22,8 +19,6 @@ namespace WBWooVariationsDefaultPrice;
  *
  */
 
-use WBWooVariationsDefaultPrice\includes\Activator;
-use WBWooVariationsDefaultPrice\includes\Deactivator;
 use WBWooVariationsDefaultPrice\Plugin;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -60,9 +55,6 @@ spl_autoload_register( function($class){
 		return;
 	}
 });
-
-register_activation_hook( __FILE__, function(){ Activator::activate(); } );
-register_deactivation_hook( __FILE__, function(){ Deactivator::deactivate(); } );
 
 require_once 'src/Plugin.php';
 /*

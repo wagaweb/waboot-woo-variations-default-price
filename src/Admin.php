@@ -39,8 +39,8 @@ class Admin {
 	public function assets(){
 		$assets = [
 			'vdp-admin-script' => [
-				'path' => $this->plugin->get_dir()."/assets/dist/js/bundle.js",
-				'uri' => $this->plugin->get_uri()."/assets/dist/js/bundle.js",
+				'path' => $this->plugin->is_debug() ? $this->plugin->get_dir()."/assets/dist/js/bundle.js" : $this->plugin->get_dir()."assets/dist/js/".$this->plugin->get_plugin_name().".min.js",
+				'uri' =>  $this->plugin->is_debug() ? $this->plugin->get_uri()."/assets/dist/js/bundle.js" : $this->plugin->get_uri()."assets/dist/js/".$this->plugin->get_plugin_name().".min.js",
 				'type' => 'js',
 				'deps' => ['jquery','backbone','underscore'],
 				'i10n' => [

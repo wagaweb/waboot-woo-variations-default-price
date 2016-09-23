@@ -16,6 +16,7 @@ class ComposerStaticInita3bc435ec8922d706e856ca73b94d956
         'PluginUpdate_1_6' => __DIR__ . '/..' . '/wbf/customupdater/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php',
         'PucDebugBarPlugin' => __DIR__ . '/..' . '/wbf/customupdater/vendor/yahnis-elsts/plugin-update-checker/debug-bar-plugin.php',
         'PucFactory' => __DIR__ . '/..' . '/wbf/customupdater/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php',
+        'WBF\\components\\assets\\AssetsManager' => __DIR__ . '/..' . '/wbf/assets/AssetsManager.php',
         'WBF\\components\\notices\\Notice_Manager' => __DIR__ . '/..' . '/wbf/notices/Notice_Manager.php',
         'WBF\\components\\notices\\conditions\\ComponentIsPresent' => __DIR__ . '/..' . '/wbf/notices/conditions/ComponentIsPresent.php',
         'WBF\\components\\notices\\conditions\\Condition' => __DIR__ . '/..' . '/wbf/notices/conditions/Condition.php',

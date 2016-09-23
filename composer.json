@@ -20,13 +20,15 @@
     "wbf/pluginsframework": "self.version",
     "wbf/customupdater": "self.version",
     "wbf/utils": "self.version",
-    "wbf/notices": "self.version"
+    "wbf/notices": "self.version",
+    "wbf/assets": "self.version"
   },
   "autoload": {
     "classmap": [
       "vendor/wbf/pluginsframework",
       "vendor/wbf/utils",
       "vendor/wbf/notices",
+      "vendor/wbf/assets",
       "vendor/wbf/customupdater/vendor/yahnis-elsts/plugin-update-checker"
     ]
   }

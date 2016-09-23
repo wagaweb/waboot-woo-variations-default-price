@@ -29,8 +29,6 @@ var paths = {
     scripts: ['./assets/src/js/**/*.js'],
     mainjs: ['./assets/src/js/main.js'],
     bundlejs: ['./assets/dist/js/bundle.js'],
-    mainscss: './assets/src/scss/main.scss',
-    maincss: './assets/src/css/main.css',
     build: [
         "**/*", 
         "!.*" , 
@@ -44,38 +42,6 @@ var paths = {
     ]
 };
 
-/**
- * Compile .scss into <pluginslug>.min.css
- */
-gulp.task('compile_sass',function(){
-    var processors = [
-        autoprefixer({browsers: ['last 1 version']}),
-        cssnano()
-    ];
-    return gulp.src(paths.mainscss)
-        .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
-        .pipe(postcss(processors))
-        .pipe(rename(plugin_slug+'.min.css'))
-        .pipe(sourcemaps.write("."))
-        .pipe(gulp.dest('./assets/dist/css'));
-});
-
-/**
- * Compile .css into <pluginslug>.min.css
- */
-gulp.task('compile_css',function(){
-    var processors = [
-        autoprefixer({browsers: ['last 1 version']}),
-        cssnano()
-    ];
-    return gulp.src(paths.maincss)
-        .pipe(sourcemaps.init())
-        .pipe(postcss(processors))
-        .pipe(rename(plugin_slug+'.min.css'))
-        .pipe(sourcemaps.write("."))
-        .pipe(gulp.dest('./assets/dist/css'));
-});
 
 /**
  * Creates and minimize bundle.js into <pluginslug>.min.js
@@ -135,24 +101,10 @@ gulp.task('make-pot', function () {
 });
 
 /**
- * Bower vendors Install
- */
-gulp.task('bower-install',function(){
-    return bower();
-});
-
-/**
- * Bower Update
- */
-gulp.task('bower-update',function(){
-    return bower({cmd: 'update'});
-});
-
-/**
  * Runs a build
  */
 gulp.task('build', function(callback) {
-    runSequence('bower-update', ['compile_js', 'compile_css'], 'make-package', 'archive', callback);
+    runSequence(['compile_js'], 'make-package', 'archive', callback);
 });
 
 /**
@@ -167,5 +119,5 @@ gulp.task('watch', function() {
  * Default task
  */
 gulp.task('default', function(callback){
-    runSequence('bower-install', ['compile_js', 'compile_sass'], 'watch', callback);
+    runSequence(['compile_js'], 'watch', callback);
 });
