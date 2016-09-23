@@ -63,7 +63,7 @@ class Plugin extends BasePlugin {
 	 * @return string|array
 	 */
 	public function get_parent_price_on_variation_price_get($value, $object_id, $meta_key, $single){
-		if($meta_key == "_price" || $meta_key == "_sale_price" || $meta_key == "regular_price"){
+		if($meta_key == "_price" || $meta_key == "_sale_price" || $meta_key == "_regular_price"){
 			if(get_post_type($object_id) == "product_variation"){
 				remove_filter( current_filter(), [$this,'get_parent_price_on_variation_price_get'] ); //Avoid infinite loop
 				//Try to get the price:
