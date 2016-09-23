@@ -18,9 +18,11 @@ module.exports = Backbone.Model.extend({
                 $pricing_group.addClass("show_if_variable");
             }
         });
-        //Show parent price as placeholder in variation prices
-        $('#variable_product_options').on('woocommerce_variations_added', (event, count) => {
-            //Search for parent product prices, and inject them as placeholders
+
+        /**
+         * Search for parent product prices, and inject them as placeholders. Used below.
+         */
+        let set_placeholders = function(){
             let $pricing_group = $(".options_group.pricing"),
                 regular_price = $pricing_group.find("input[name=_regular_price]").val(),
                 sale_price = $pricing_group.find("input[name=_sale_price]").val();
@@ -38,6 +40,15 @@ module.exports = Backbone.Model.extend({
                     }
                 }
             });
+        };
+
+        //Show parent price as placeholder in variation prices
+        $('#variable_product_options').on('woocommerce_variations_added', (event, count) => {
+            set_placeholders();
+        });
+
+        $( '#woocommerce-product-data' ).on('woocommerce_variations_loaded', (event) => {
+            set_placeholders();
         });
     },
     on_load: function(){
