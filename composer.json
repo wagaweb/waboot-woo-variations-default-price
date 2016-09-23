@@ -1,0 +1,29 @@
+{
+  "name": "waga/wb-woo-variations-default-price",
+  "license": "",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Riccardo D'Angelo",
+      "email": "riccardo@waga.it"
+    },
+    {
+      "name": "Waga Dev Team",
+      "email": "dev@waga.it"
+    }
+  ],
+  "replace": {
+    "wbf/pluginsframework": "self.version",
+    "wbf/customupdater": "self.version",
+    "wbf/utils": "self.version",
+    "wbf/notices": "self.version"
+  },
+  "autoload": {
+    "classmap": [
+      "vendor/wbf/pluginsframework",
+      "vendor/wbf/utils",
+      "vendor/wbf/notices",
+      "vendor/wbf/customupdater/vendor/yahnis-elsts/plugin-update-checker"
+    ]
+  }
+}
