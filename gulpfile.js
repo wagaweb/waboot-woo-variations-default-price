@@ -22,7 +22,7 @@ var gulp = require('gulp'),
     wpPot = require('gulp-wp-pot'),
     sort = require('gulp-sort');
 
-var plugin_slug = "wb-woo-variations-default-price";
+var plugin_slug = "waboot-woo-variations-default-price";
 
 var paths = {
     builddir: "./builds",
