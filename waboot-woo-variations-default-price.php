@@ -9,7 +9,7 @@ namespace WBWooVariationsDefaultPrice;
  * Plugin Name:       WAGA Variations Default Prices for WooCommerce
  * Plugin URI:        http://www.waga.it/
  * Description:       Allows shop owner to set default prices for product variations.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            WAGA
  * Author URI:        http://www.waga.it/
  * License:           GPL-2.0+
@@ -25,7 +25,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die; //If this file is called directly, abort.
 }
 
-require_once "vendor/autoload.php";
+if(is_file(__DIR__.'/vendor/autoload.php')){
+	require_once "vendor/autoload.php";
+}
 
 /********************************************************/
 /****************** PLUGIN BEGIN ************************
@@ -56,9 +58,21 @@ spl_autoload_register( function($class){
 	}
 });
 
-require_once 'src/Plugin.php';
-/*
- * Begins execution of the plugin.
- */
-$plugin = new Plugin();
-$plugin->run();
+require_once 'src/includes/wbf-plugin-check-functions.php';
+includes\include_wbf_autoloader();
+
+if(class_exists("\\WBF\\components\\pluginsframework\\BasePlugin")) {
+	require_once 'src/Plugin.php';
+	$plugin = new Plugin();
+	$plugin->run();
+}else{
+	if(is_admin()){
+		add_action( 'admin_notices', function(){
+			?>
+			<div class="error">
+				<p><?php _e( basename(__FILE__). ' requires Waboot Framework' ); ?></p>
+			</div>
+			<?php
+		});
+	}
+}

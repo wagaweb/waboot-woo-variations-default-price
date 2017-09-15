@@ -20,7 +20,7 @@ class Plugin extends BasePlugin {
 	 * Define the core functionality of the plugin.
 	 */
 	public function __construct() {
-		parent::__construct( "wb-woo-variations-default-price", plugin_dir_path( dirname( __FILE__ ) ) );
+		parent::__construct( "waboot-woo-variations-default-price", plugin_dir_path( dirname( __FILE__ ) ) );
 
 		$this->define_public_hooks();
 		$this->define_admin_hooks();

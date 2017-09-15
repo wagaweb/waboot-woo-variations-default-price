@@ -1,6 +1,6 @@
 {
-  "name": "waga/wb-woo-variations-default-price",
-  "keywords": ["wordpress","framework"],
+  "name": "waga/waboot-woo-variations-default-price",
+  "keywords": ["wordpress","plugins","woocommerce"],
   "type": "wordpress-plugin",
   "description": "Allows shop owner to set default prices for product variations.",
   "homepage": "https://www.waga.it",
