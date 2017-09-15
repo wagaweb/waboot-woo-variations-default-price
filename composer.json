@@ -1,35 +1,16 @@
 {
   "name": "waga/wb-woo-variations-default-price",
-  "license": "",
-  "version": "1.0.0",
+  "keywords": ["wordpress","framework"],
+  "type": "wordpress-plugin",
+  "description": "Allows shop owner to set default prices for product variations.",
+  "homepage": "https://www.waga.it",
+  "license": "GPL-2.0+",
   "authors": [
-    {
-      "name": "Riccardo D'Angelo",
-      "email": "riccardo@waga.it",
-      "homepage": "http://www.waga.it",
-      "role": "Lead Developer"
-    },
     {
       "name": "Waga Dev Team",
       "email": "dev@waga.it",
       "homepage": "http://www.waga.it",
       "role": "Developer"
     }
-  ],
-  "replace": {
-    "wbf/pluginsframework": "self.version",
-    "wbf/customupdater": "self.version",
-    "wbf/utils": "self.version",
-    "wbf/notices": "self.version",
-    "wbf/assets": "self.version"
-  },
-  "autoload": {
-    "classmap": [
-      "vendor/wbf/pluginsframework",
-      "vendor/wbf/utils",
-      "vendor/wbf/notices",
-      "vendor/wbf/assets",
-      "vendor/wbf/customupdater/vendor/yahnis-elsts/plugin-update-checker"
-    ]
-  }
+  ]
 }
