@@ -11,7 +11,7 @@ namespace WBWooVariationsDefaultPrice;
  * Description:       Allows shop owner to set default prices for product variations.
  * Version:           1.1.0
  * Author:            WAGA
- * Author URI:        https://www.waboot.io/
+ * Author URI:        https://www.waga.it/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wb-woo-variations-default-price
