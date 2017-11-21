@@ -110,7 +110,7 @@ class Admin {
 	 */
 	public function save_prices_for_variable_products_during_quick_edit($product){
 		if ( $product->is_type('variable') ) {
-			$post_id = $product->id;
+			$post_id = $product->get_id();
 
 			if ( isset( $_REQUEST['_regular_price'] ) ) {
 				$new_regular_price = $_REQUEST['_regular_price'] === '' ? '' : wc_format_decimal( $_REQUEST['_regular_price'] );
@@ -142,6 +142,35 @@ class Admin {
 					update_post_meta( $post_id, '_price', $new_sale_price );
 				} else {
 					update_post_meta( $post_id, '_price', $new_regular_price );
+				}
+			}
+		}
+	}
+
+	/**
+	 * WooCommerce 3 force regular and sale price on variable to be empty. See: class-wc-product-variable-data-store-cpt.php::read_product_data().
+	 *
+	 * We set these values back before printing metaboxes.
+	 *
+	 * @hooked 'woocommerce_product_write_panel_tabs'
+	 */
+	public function set_variable_product_prices_before_metaboxes(){
+		global $product_object;
+
+		if(isset($product_object) && $product_object instanceof \WC_Product_Variable){
+			if(isset($_GET['action']) && $_GET['action'] === 'edit'){
+				$product_object->set_props( array(
+					'regular_price'      => get_post_meta( $product_object->get_id(), '_regular_price', true ),
+					'sale_price'         => get_post_meta( $product_object->get_id(), '_sale_price', true ),
+				) );
+
+				$product_object->set_regular_price(get_post_meta( $product_object->get_id(), '_regular_price', true ));
+				$product_object->set_sale_price(get_post_meta( $product_object->get_id(), '_sale_price', true ));
+
+				// Handle sale dates on the fly in case of missed cron schedule.
+				if ( $product_object->is_type( 'simple' ) && $product_object->is_on_sale( 'edit' ) && $product_object->get_sale_price( 'edit' ) !== $product_object->get_price( 'edit' ) ) {
+					update_post_meta( $product_object->get_id(), '_price', $product_object->get_sale_price( 'edit' ) );
+					$product_object->set_price( $product_object->get_sale_price( 'edit' ) );
 				}
 			}
 		}

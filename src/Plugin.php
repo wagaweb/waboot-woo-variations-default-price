@@ -49,6 +49,8 @@ class Plugin extends BasePlugin {
 		$this->loader->add_action('woocommerce_product_quick_edit_save', $plugin_admin, "save_prices_for_variable_products_during_quick_edit", 10, 1);
 
 		$this->loader->add_filter('woocommerce_bulk_edit_save_price_product_types', $plugin_admin, "enable_variable_product_to_save_price_in_bulk_edit", 10, 1);
+
+		$this->loader->add_action('woocommerce_product_write_panel_tabs',$plugin_admin,'set_variable_product_prices_before_metaboxes', 99, 2);
 	}
 
 	private function define_general_hooks(){
@@ -75,7 +77,7 @@ class Plugin extends BasePlugin {
 				if($variation_price == ""){
 					$parent_price = call_user_func(function() use($object_id,$meta_key){
 						$v = wc_get_product($object_id);
-						$value = get_post_meta($v->parent->id,$meta_key,true);
+						$value = get_post_meta($v->get_parent_id(),$meta_key,true);
 						return $value;
 					});
 					if($parent_price != ""){
@@ -90,8 +92,6 @@ class Plugin extends BasePlugin {
 
 	/**
 	 * Load the required dependencies for this plugin (called into parent::_construct())
-	 *
-	 * [IT] E' possibile utilizzare questa funzione per dei require di eventuali vendors
 	 */
 	protected function load_dependencies() {
 		parent::load_dependencies();
