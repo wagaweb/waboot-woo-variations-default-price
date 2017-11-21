@@ -32,6 +32,12 @@ class Plugin extends BasePlugin {
 	 */
 	private function define_public_hooks() {
 		$plugin_public = $this->loader->public_plugin;
+
+		$this->loader->add_filter('woocommerce_variable_empty_price_html',$plugin_public,'alter_variable_empty_price_html_output',10,2);
+
+		$this->loader->add_filter("woocommerce_product_get_price", $plugin_public, "get_variable_price", 10, 2);
+		$this->loader->add_filter("woocommerce_product_get_regular_price", $plugin_public, "get_variable_regular_price", 10, 2);
+		$this->loader->add_filter("woocommerce_product_get_sale_price", $plugin_public, "get_variable_sale_price", 10, 2);
 	}
 
 	/**
