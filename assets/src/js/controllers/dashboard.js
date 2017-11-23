@@ -25,17 +25,25 @@ module.exports = Backbone.Model.extend({
         let set_placeholders = function(){
             let $pricing_group = $(".options_group.pricing"),
                 regular_price = $pricing_group.find("input[name=_regular_price]").val(),
-                sale_price = $pricing_group.find("input[name=_sale_price]").val();
+                sale_price = $pricing_group.find("input[name=_sale_price]").val(),
+                sale_price_from = $pricing_group.find("input[name=_sale_price_dates_from]").val(),
+                sale_price_to = $pricing_group.find("input[name=_sale_price_dates_to]").val();
 
             $(".variable_pricing").find('input').each((i,el) => {
                 if($(el).attr("name").match(/regular_price/)){
-                    let my_value = $(el).val();
-                    if(my_value == "" && !regular_price == ""){
+                    if($(el).val() === "" && regular_price !== ""){
                         $(el).attr("placeholder",regular_price);
                     }
+                }else if($(el).attr("name").match(/sale_price_dates_from/)){
+                    if($(el).val() === "" && sale_price_from !== ""){
+                        $(el).attr("placeholder",sale_price_from);
+                    }
+                }else if($(el).attr("name").match(/sale_price_dates_to/)){
+                    if($(el).val() === "" && sale_price_to !== ""){
+                        $(el).attr("placeholder",sale_price_to);
+                    }
                 }else if($(el).attr("name").match(/sale_price/)){
-                    let my_value = $(el).val();
-                    if(my_value == "" && !sale_price == ""){
+                    if($(el).val() === "" && sale_price !== ""){
                         $(el).attr("placeholder",sale_price);
                     }
                 }
