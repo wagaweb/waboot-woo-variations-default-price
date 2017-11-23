@@ -71,16 +71,41 @@ class Admin {
 		$regular_price = (string) isset( $_POST['_regular_price'] ) ? wc_clean( $_POST['_regular_price'] )                 : '';
 		$sale_price    = (string) isset( $_POST['_sale_price'] ) ? wc_clean( $_POST['_sale_price'] )                       : '';
 
+		//$product = wc_get_product($post_id);
+
 		update_post_meta( $post_id, '_regular_price', '' === $regular_price ? '' : wc_format_decimal( $regular_price ) );
 		update_post_meta( $post_id, '_sale_price', '' === $sale_price ? '' : wc_format_decimal( $sale_price ) );
 
 		// Dates
 		update_post_meta( $post_id, '_sale_price_dates_from', $date_from ? strtotime( $date_from ) : '' );
 		update_post_meta( $post_id, '_sale_price_dates_to', $date_to ? strtotime( $date_to ) : '' );
+		//update_post_meta( $post_id, '_date_on_sale_from', $date_from ? strtotime( $date_from ) : '' );
+		//update_post_meta( $post_id, '_date_on_sale_to', $date_to ? strtotime( $date_to ) : '' );
+
+		if($date_from !== "" && $date_from !== false){
+			$product = wc_get_product($post_id);
+			if($product instanceof \WC_Product_Variable){
+				$variations = $product->get_available_variations();
+				if(is_array($variations) && !empty($variations)){
+					foreach ($variations as $v){
+						$v_id = $v['variation_id'];
+						$d_from = get_post_meta( $v_id, '_sale_price_dates_from', true );
+						$d_to = get_post_meta( $v_id, '_sale_price_dates_to', true );
+						if($d_from === "" && $d_to === ""){
+							$variation = wc_get_product( $v_id );
+							$variation->set_date_on_sale_from( strtotime($date_from) );
+							$variation->set_date_on_sale_to( strtotime($date_to) );
+							$variation->save();
+						}
+					}
+				}
+			}
+		}
 
 		if ( $date_to && ! $date_from ) {
 			$date_from = date( 'Y-m-d' );
 			update_post_meta( $post_id, '_sale_price_dates_from', strtotime( $date_from ) );
+			//update_post_meta( $post_id, '_date_on_sale_from', strtotime( $date_from ) );
 		}
 
 		// Update price if on sale
