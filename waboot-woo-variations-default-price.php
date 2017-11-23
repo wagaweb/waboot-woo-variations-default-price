@@ -9,7 +9,7 @@ namespace WBWooVariationsDefaultPrice;
  * Plugin Name:       Waboot Variations Default Prices for WooCommerce
  * Plugin URI:        https://www.waboot.io/
  * Description:       Allows shop owner to set default prices for product variations.
- * Version:           1.1.2
+ * Version:           1.1.3
  * Author:            WAGA
  * Author URI:        https://www.waga.it/
  * License:           GPL-2.0+
