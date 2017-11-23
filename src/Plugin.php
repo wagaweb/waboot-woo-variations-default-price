@@ -35,9 +35,15 @@ class Plugin extends BasePlugin {
 
 		$this->loader->add_filter('woocommerce_variable_empty_price_html',$plugin_public,'alter_variable_empty_price_html_output',10,2);
 
+		//Props getter
 		$this->loader->add_filter("woocommerce_product_get_price", $plugin_public, "get_variable_price", 10, 2);
+
 		$this->loader->add_filter("woocommerce_product_get_regular_price", $plugin_public, "get_variable_regular_price", 10, 2);
+
 		$this->loader->add_filter("woocommerce_product_get_sale_price", $plugin_public, "get_variable_sale_price", 10, 2);
+
+		$this->loader->add_filter("woocommerce_product_get_date_on_sale_from", $plugin_public, "get_date_on_sale_from", 10, 2);
+		$this->loader->add_filter("woocommerce_product_get_date_on_sale_to", $plugin_public, "get_date_on_sale_to", 10, 2);
 	}
 
 	/**

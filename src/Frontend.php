@@ -53,6 +53,10 @@ class Frontend {
 	}
 
 	/**
+	 * Prop getter
+	 *
+	 * @hooked 'woocommerce_product_get_price'
+	 *
 	 * @param $price
 	 * @param $product
 	 *
@@ -81,6 +85,10 @@ class Frontend {
 	}
 
 	/**
+	 * Prop getter
+	 *
+	 * @hooked 'woocommerce_product_get_regular_price'
+	 *
 	 * @param $price
 	 * @param $product
 	 *
@@ -94,6 +102,10 @@ class Frontend {
 	}
 
 	/**
+	 * Prop getter
+	 *
+	 * @hooked 'woocommerce_product_get_sale_price'
+	 *
 	 * @param $price
 	 * @param $product
 	 *
@@ -104,5 +116,59 @@ class Frontend {
 			return $price;
 		}
 		return get_post_meta($product->get_id(),'_sale_price',true);
+	}
+
+	/**
+	 * Prop getter
+	 *
+	 * @woocommerce_product_get_date_on_sale_from
+	 *
+	 * @param $date
+	 * @param $product
+	 *
+	 * @return mixed
+	 */
+	public function get_date_on_sale_from($date,$product){
+		if($product instanceof \WC_Product_Variation && $date === ""){
+			$parent_id = $product->get_parent_id();
+			$date = get_post_meta( $parent_id, '_sale_price_dates_from', true );
+			if($date === ""){
+				$date = get_post_meta( $parent_id, '_date_on_sale_from', true );
+			}
+			return $date;
+		}elseif($product instanceof \WC_Product_Variable){
+			$date = get_post_meta( $product->get_id(), '_sale_price_dates_from', true );
+			if($date === ""){
+				$date = get_post_meta( $product->get_id(), '_date_on_sale_from', true );
+			}
+		}
+		return $date;
+	}
+
+	/**
+	 * Prop getter
+	 *
+	 * @hooked 'woocommerce_product_get_date_on_sale_to'
+	 *
+	 * @param $date
+	 * @param $product
+	 *
+	 * @return mixed
+	 */
+	public function get_date_on_sale_to($date,$product){
+		if($product instanceof \WC_Product_Variation && $date === ""){
+			$parent_id = $product->get_parent_id();
+			$date = get_post_meta( $parent_id, '_sale_price_dates_to', true );
+			if($date === ""){
+				$date = get_post_meta( $parent_id, '_date_on_sale_to', true );
+			}
+			return $date;
+		}elseif($product instanceof \WC_Product_Variable){
+			$date = get_post_meta( $product->get_id(), '_sale_price_dates_to', true );
+			if($date === ""){
+				$date = get_post_meta( $product->get_id(), '_date_on_sale_to', true );
+			}
+		}
+		return $date;
 	}
 }
